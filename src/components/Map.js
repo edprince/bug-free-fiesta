@@ -27,7 +27,7 @@ class ReactMap extends React.Component {
       lat: 51.505,
       lng: -0.09,
       zoom: 5,
-      markers = [];
+
     };
   }
 
