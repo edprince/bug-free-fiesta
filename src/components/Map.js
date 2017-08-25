@@ -19,6 +19,8 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 var yesVotes = database.ref("questions/0/yes/");
+var yesResults = "Hello";
+var array = [];
 
 class ReactMap extends React.Component {
   constructor() {
@@ -28,6 +30,21 @@ class ReactMap extends React.Component {
       lng: -0.09,
       zoom: 5
     };
+    const yesVotes = firebase.database().ref("questions/0/yes/");
+    yesVotes.on("value", snapshot => {
+      let newState = [];
+      let results = snapshot.val();
+      for (let result in results) {
+        newState.push({
+          id: result,
+          lat: (results[result] = result.lat),
+          lng: (results[result] = result.lng)
+        });
+      }
+      this.setState({
+        yesVotes: newState
+      });
+    });
   }
 
   render() {
@@ -41,11 +58,6 @@ class ReactMap extends React.Component {
         />
       </Map>
     );
-    /*
-      {this.state.markers.map((position, idx) => 
-        <Marker key={`marker-${idx}`} position={position}></Marker>
-      )}
-      */
   }
 }
 
