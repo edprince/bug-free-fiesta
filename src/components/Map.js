@@ -7,8 +7,6 @@ import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 
 var database = Firebase.database();
 var yesVotes = database.ref("questions/0/yes/");
-var yesResults = "Hello";
-var array = [];
 
 class ReactMap extends React.Component {
   constructor() {
@@ -17,23 +15,23 @@ class ReactMap extends React.Component {
       lat: 51.505,
       lng: -0.09,
       zoom: 5
+      //yesVotes: [],
+      //noVotes: []
     };
-    const yesVotes = Firebase.database().ref("questions/0/yes/");
-    yesVotes.on("value", snapshot => {
-      let newState = [];
+  }
+
+  getYesVotes() {
+    const rootRef = Firebase.database().ref("/");
+    rootRef.on("value", snapshot => {
       let results = snapshot.val();
-      for (let result in results) {
-        newState.push({
-          id: result,
-          lat: (results[result] = result.lat),
-          lng: (results[result] = result.lng)
-        });
-      }
-      console.log(newState);
-      this.state = {
-        yesVotes: newState
-      };
+      this.setState({
+        yesVotes: results
+      });
     });
+  }
+
+  componentDidMount() {
+    this.getYesVotes();
   }
 
   render() {
@@ -45,9 +43,7 @@ class ReactMap extends React.Component {
           attribution="&copy; <a href=&quot;http://www.openstreetmap.org/copyright&quot;>OpenStreetMap</a> &copy; <a href=&quot;http://cartodb.com/attributions&quot;>CartoDB</a>"
           url="http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
         />
-        {
-          //this.state.yesVotes.map(id => <Marker position={[id.lat, id.lng]} />)
-        }
+        <div className="yes">{this.state.yesVotes}</div>
       </Map>
     );
   }

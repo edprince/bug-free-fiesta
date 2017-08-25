@@ -19,6 +19,9 @@ body {
   //height: 150px;
   padding: 5px;
   padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 1em;
+  padding-bottom: 1em;
   color: white;
   border-bottom: solid 1px #666666;
   text-align: left;
@@ -26,13 +29,33 @@ body {
 
 .App-header h2 {
   font-weight: 300;
+  display: inline;
 }
 
 .App-intro {
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.App-header a {
+  color: #a8a8a8;
+  float: right;
+  text-transform: uppercase;
+  line-height: 27px;
+  padding-left: 1em;
+  padding-right: 1em;
+  border-right: solid 1px #a8a8a8;
 }
+
+.App-header a:first-of-type {
+  border-right: 0;
+}
+
+.App-header a:hover {
+  color: white;
+  cursor: pointer;
+}
+
+.align-right {
+  float: right;
+}
+
