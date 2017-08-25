@@ -1,23 +1,11 @@
 import React from "react";
-import * as firebase from "firebase";
+import Firebase from "../Firebase.js";
 import "./Map.css";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 
-// Initialize Firebase
-var config = {
-  apiKey: "AIzaSyBrLOyRxAH_H2JKZZlMNAov5nyQBgTfVGk",
-  authDomain: "global-poler.firebaseapp.com",
-  databaseURL: "https://global-poler.firebaseio.com",
-  projectId: "global-poler",
-  storageBucket: "",
-  messagingSenderId: "806403697914"
-};
-
-firebase.initializeApp(config);
-
-var database = firebase.database();
+var database = Firebase.database();
 var yesVotes = database.ref("questions/0/yes/");
 var yesResults = "Hello";
 var array = [];
@@ -30,7 +18,7 @@ class ReactMap extends React.Component {
       lng: -0.09,
       zoom: 5
     };
-    const yesVotes = firebase.database().ref("questions/0/yes/");
+    const yesVotes = Firebase.database().ref("questions/0/yes/");
     yesVotes.on("value", snapshot => {
       let newState = [];
       let results = snapshot.val();
@@ -41,9 +29,10 @@ class ReactMap extends React.Component {
           lng: (results[result] = result.lng)
         });
       }
-      this.setState({
+      console.log(newState);
+      this.state = {
         yesVotes: newState
-      });
+      };
     });
   }
 
@@ -56,6 +45,9 @@ class ReactMap extends React.Component {
           attribution="&copy; <a href=&quot;http://www.openstreetmap.org/copyright&quot;>OpenStreetMap</a> &copy; <a href=&quot;http://cartodb.com/attributions&quot;>CartoDB</a>"
           url="http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
         />
+        {
+          //this.state.yesVotes.map(id => <Marker position={[id.lat, id.lng]} />)
+        }
       </Map>
     );
   }

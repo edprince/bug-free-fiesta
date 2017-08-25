@@ -1,0 +1,21 @@
+li {
+  list-style-type: none;
+  text-align: left;
+  background-color: #181818;
+  padding: .5em;
+  padding-left: 1em;
+  max-width: 100%;
+  width: 80%;
+  margin: 0 auto;
+  border-bottom: solid 1px #585858;
+}
+
+li:hover {
+  cursor: pointer;
+  background: #080808;
+}
+
+.minor {
+  color: grey;
+  font-size: .8em;
+}
