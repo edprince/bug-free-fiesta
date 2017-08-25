@@ -26,8 +26,7 @@ class ReactMap extends React.Component {
     this.state = {
       lat: 51.505,
       lng: -0.09,
-      zoom: 5,
-
+      zoom: 5
     };
   }
 
@@ -41,10 +40,12 @@ class ReactMap extends React.Component {
           url="http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
         />
       </Map>
+    );
+    /*
       {this.state.markers.map((position, idx) => 
         <Marker key={`marker-${idx}`} position={position}></Marker>
       )}
-    );
+      */
   }
 }
 
