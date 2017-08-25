@@ -1,29 +1,51 @@
 import React from "react";
+import * as firebase from "firebase";
 import "./Map.css";
 import "leaflet/dist/leaflet.css";
-import Leaflet from "leaflet";
+import L from "leaflet";
+import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 
-const TileLayer = Leaflet.tileLayer(
-  "http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
-  {
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-    subdomains: "abcd",
-    maxZoom: 19
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyBrLOyRxAH_H2JKZZlMNAov5nyQBgTfVGk",
+  authDomain: "global-poler.firebaseapp.com",
+  databaseURL: "https://global-poler.firebaseio.com",
+  projectId: "global-poler",
+  storageBucket: "",
+  messagingSenderId: "806403697914"
+};
+
+firebase.initializeApp(config);
+
+var database = firebase.database();
+var yesVotes = database.ref("questions/0/yes/");
+
+class ReactMap extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      lat: 51.505,
+      lng: -0.09,
+      zoom: 5,
+      markers = [];
+    };
   }
-);
 
-class Map extends React.Component {
   render() {
-    return <div id="mapid" className="map--mapContainer" ref={this.embed} />;
+    //const position = [this.state.lat, this.state.lng];
+    const position = [this.state.lat, this.state.lng];
+    return (
+      <Map center={position} zoom={this.state.zoom}>
+        <TileLayer
+          attribution="&copy; <a href=&quot;http://www.openstreetmap.org/copyright&quot;>OpenStreetMap</a> &copy; <a href=&quot;http://cartodb.com/attributions&quot;>CartoDB</a>"
+          url="http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
+        />
+      </Map>
+      {this.state.markers.map((position, idx) => 
+        <Marker key={`marker-${idx}`} position={position}></Marker>
+      )}
+    );
   }
-
-  embed = mapElement => {
-    let { pos, zoom } = this.props;
-    this.map = Leaflet.map(mapElement);
-    //this.map.setView([53.915213, -1.866901], 6);
-    this.map.setView(pos, zoom);
-    TileLayer.addTo(this.map);
-  };
 }
 
-export default Map;
+export default ReactMap;

@@ -1,0 +1,11 @@
+
+.leaflet-container {
+  height: 100vh;
+  width: 100%;
+}
+
+.leaflet-div-icon {
+  background: #31A8E0 !important;
+  border-radius: 50%;
+  border: 0 !important;
+}
