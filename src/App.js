@@ -13,7 +13,9 @@ class App extends Component {
           <a className="align-right">Pose a question</a>
           <a className="align-right">Find more questions</a>
         </div>
-        {/*<QuestionList />*/}
+        {
+          //<QuestionList />
+        }
         <ReactMap pos={[53.915213, -1.866901]} zoom={6} />
       </div>
     );

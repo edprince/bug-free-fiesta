@@ -6,19 +6,22 @@ import "./QuestionList.css";
 class QuestionList extends React.Component {
   constructor() {
     super();
-    const questions = Firebase.database().ref("/");
+    const questions = Firebase.database().ref("/questions/");
     this.state = {
       questions: []
     };
     questions.on("value", snapshot => {
       let results = snapshot.val();
-      this.state.questions.push(results);
+      this.setState({
+        questions: results
+      });
     });
   }
   render() {
     return (
       <ul>
         {this.state.questions.map(function(question) {
+          console.log(question);
           return (
             <QuestionTile
               key={question.title}
